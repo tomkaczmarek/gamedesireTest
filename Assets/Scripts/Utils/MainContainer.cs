@@ -12,19 +12,21 @@ namespace Assets.Scripts.Utils
 {
     public class MainContainer : BaseContainer
     {
+        private HashSet<int> _visitedPages;
         private IList<ItemDefinition> _items;
 
         [SerializeField] private GameObject _itemPrefab;
         [SerializeField] private int _maxItemsCount;
         public override event Action OnGenerateEnd;
 
-        public override void Awake()
+        public override void Initialize(IDataServer server, IGenerator generator)
         {
-            base.Awake();
+            base.Initialize(server, generator);
             _items = new List<ItemDefinition>();
+            _visitedPages = new HashSet<int>();
             for (int i = 0; i < _maxItemsCount; i++)
             {
-                GameObject go = Instantiate<GameObject>(_itemPrefab);             
+                GameObject go = Instantiate<GameObject>(_itemPrefab);
                 go.transform.SetParent(this.gameObject.transform);
                 go.transform.localScale = new Vector3(1, 1, 1);
                 go.transform.localPosition = new Vector3(0, 0, 0);
@@ -44,7 +46,17 @@ namespace Assets.Scripts.Utils
             {
                 _items[i - 1].SetItem(model[i]);
             }
+            
             OnGenerateEnd?.Invoke();
+        }
+
+        public override bool IsPageVisited(int index)
+        {
+            if (_visitedPages.Contains(index))
+                return true;
+
+            _visitedPages.Add(index);
+            return false;
         }
     }
 }

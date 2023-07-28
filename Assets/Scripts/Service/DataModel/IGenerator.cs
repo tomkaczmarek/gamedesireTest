@@ -8,6 +8,8 @@ namespace Assets.Scripts.Service.DataModel
 {
     public interface IGenerator
     {
+        public int MaxItemsGenerate { get;}
         IDictionary<int, IModel> Generate(int maxItemsCount);
+        int GetSpecialItemCounter();
     }
 }

@@ -17,9 +17,10 @@ namespace Assets.Scripts.Utils
         public IDataServer Server => _server;
         public IGenerator Generator => _generator;
         public int CurrentPage { get; set; }
+
         public virtual event Action OnGenerateEnd;
 
-        public virtual void Awake()
+        public virtual void Start()
         {
 
         }
@@ -30,5 +31,6 @@ namespace Assets.Scripts.Utils
         }
         public virtual void FillContent(int index) { }
         public virtual int GetNextPageIndex() { return 0; }
+        public virtual bool IsPageVisited(int index) { return false; }
     }
 }
