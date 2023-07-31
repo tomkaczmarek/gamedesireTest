@@ -20,7 +20,7 @@ namespace Assets.Scripts.UI
 
         public virtual void OnDisable()
         {
-
+            HUDController.DisableHud();
         }    
     }
 }

@@ -25,7 +25,13 @@ namespace Assets.Scripts.UI.HUD
 
             _scoreSystem = GetComponentInChildren<AbstractScore>();
             _pageSystem = GetComponentInChildren<AbstractPage>();
-            _restartSystem = GetComponentInChildren<RestartSystem>();
+            _restartSystem = GetComponentInChildren<AbstractRestart>();
+        }
+
+        public void DisableHud()
+        {
+            foreach (var element in _hudElements)
+                element.DisposeElement();
         }
     }
 }
